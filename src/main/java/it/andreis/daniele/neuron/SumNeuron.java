@@ -3,8 +3,8 @@ package it.andreis.daniele.neuron;
 import java.util.function.ToDoubleFunction;
 
 public class SumNeuron extends Neuron {
-	private double[] weight;
-	private int nInput = 0;
+	protected double[] weight;
+	protected int nInput = 0;
 
 	public SumNeuron(ToDoubleFunction<Double> f, int dim) {
 		super(f);
@@ -29,10 +29,19 @@ public class SumNeuron extends Neuron {
 	}
 
 	public static void main(String[] args) {
-		Neuron n = new SumNeuron(ActivationFunction.STEP, 3);
-		System.out.println(n.getValue(new double[] { 0.0, 1.0, 2.0 }));
-		n.setF(ActivationFunction.SIG);
-		System.out.println(n.getValue(new double[] { 0.0, 1.0, 2.0 }));
+		java.util.Random r = new java.util.Random();
+		int dim = 20000;
+		double[] numbers = r.doubles(dim).toArray();
+		long start = System.currentTimeMillis();
+		Neuron n = new SumNeuron(ActivationFunction.SIG, dim);
+		System.out.println(n.getValue(numbers));
+		long time = System.currentTimeMillis() - start;
+		System.out.println(time);
+		start = System.currentTimeMillis();
+		Neuron n2 = new SumNeuron(ActivationFunction.SIG, dim);
+		System.out.println(n2.getValue(numbers));
+		time = System.currentTimeMillis() - start;
+		System.out.println(time);
 
 	}
 }

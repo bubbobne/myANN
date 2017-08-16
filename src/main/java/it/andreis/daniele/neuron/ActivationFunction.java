@@ -4,7 +4,6 @@ import java.util.function.ToDoubleFunction;
 
 enum ActivationFunction implements ToDoubleFunction<Double> {
 	STEP {
-
 		@Override
 		public double applyAsDouble(Double value) {
 			if (value >= 0) {
@@ -24,7 +23,6 @@ enum ActivationFunction implements ToDoubleFunction<Double> {
 
 	},
 	SIG {
-
 		@Override
 		public double applyAsDouble(Double value) {
 			// TODO Auto-generated method stub
