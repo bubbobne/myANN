@@ -8,20 +8,14 @@ public class StramSumNeuron extends SumNeuron {
 
 	public StramSumNeuron(ToDoubleFunction<Double> f, int dim) {
 		super(f, dim);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected double evaluateIndipendentVariable(double[] input) {
-		// TODO Auto-generated method stub
-
-		if (input.length != this.weight.length) {
-			throw new IllegalArgumentException("");
-		}
+		checkArrayDimension(weight);
 
 		return DoubleStream.of(IntStream.range(0, weight.length).mapToDouble(i -> weight[i] * input[i]).toArray())
 		        .sum();
-
 	}
 
 }
