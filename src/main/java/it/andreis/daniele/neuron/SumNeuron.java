@@ -1,20 +1,31 @@
 package it.andreis.daniele.neuron;
 
 import java.util.function.ToDoubleFunction;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
 
+/**
+ * 
+ * 
+ * @author Daniele Andreis
+ * 
+ *         18 Aug 2017
+ */
 public class SumNeuron extends Neuron {
 	public SumNeuron(ToDoubleFunction<Double> f, int dim) {
 		super(f, dim);
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param input
+	 */
 	@Override
 	protected double evaluateIndipendentVariable(double[] input) {
-		checkArrayDimension(weight);
-		double sum = 0;
-		for (int i = 0; i < this.nInput; i++) {
-			sum = sum + this.weight[i] * input[i];
-		}
-		return sum;
+		checkArrayDimension(weights);
+		return DoubleStream.of(IntStream.range(0, weights.length).mapToDouble(i -> weights[i] * input[i]).toArray())
+		        .parallel().sum();
 	}
 
 }

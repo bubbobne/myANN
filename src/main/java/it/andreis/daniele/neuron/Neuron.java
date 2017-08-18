@@ -2,46 +2,99 @@ package it.andreis.daniele.neuron;
 
 import java.util.function.ToDoubleFunction;
 
+/**
+ * 
+ * 
+ * 
+ * @author Daniele Andreis 18 Aug 2017
+ */
 public abstract class Neuron {
-	ToDoubleFunction<Double> f = null;
-	protected double[] weight;
+	/**
+     * 
+     */
+	private ToDoubleFunction<Double> activationFunction = null;
+	/**
+	 * 
+	 */
+	protected double[] weights;
+	/**
+	 * 
+	 */
 	protected int nInput = 0;
 
+	/**
+	 * 
+	 * @param f
+	 * @param dim
+	 */
 	public Neuron(ToDoubleFunction<Double> f, int dim) {
-		this.f = f;
+		this.activationFunction = f;
 		this.nInput = dim;
 	}
 
+	/*
+	 * 
+	 */
 	private Neuron() {
 	};
 
-	public ToDoubleFunction<Double> getF() {
-		return this.f;
+	/**
+	 * 
+	 * @return
+	 */
+	public ToDoubleFunction<Double> getActivationFunctions() {
+		return this.activationFunction;
 	}
 
-	public void setF(ToDoubleFunction<Double> f) {
-		this.f = f;
+	/**
+	 * 
+	 * @param f
+	 */
+	public void setActivationFunction(ToDoubleFunction<Double> f) {
+		this.activationFunction = f;
 	}
 
-	public double[] getWeight() {
-		return weight;
+	/**
+	 * 
+	 * @return
+	 */
+	public double[] getWeights() {
+		return weights;
 	}
 
-	public void setWeight(double[] weight) {
+	/**
+	 * 
+	 * @param weight
+	 */
+	public void setWeights(double[] weight) {
 		checkArrayDimension(weight);
-		this.weight = weight;
+		this.weights = weight;
 	}
 
+	/**
+	 * 
+	 * @param array
+	 */
 	protected void checkArrayDimension(double[] array) {
 		if (array.length != nInput) {
 			throw new IllegalArgumentException("wrong dimensions");
 		}
 	}
 
+	/**
+	 * 
+	 * @param input
+	 * @return
+	 */
 	protected abstract double evaluateIndipendentVariable(double[] input);
 
-	public double getValue(double[] input) {
-		return f.applyAsDouble(evaluateIndipendentVariable(input));
+	/**
+	 * 
+	 * @param input
+	 * @return
+	 */
+	public double getOutput(double[] input) {
+		return activationFunction.applyAsDouble(evaluateIndipendentVariable(input));
 	}
 
 }
